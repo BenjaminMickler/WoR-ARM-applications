@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WoR ARM Applications</title>
+<title>WoR ARM Applications</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-table {
-  font-family: arial, sans-serif;
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
   border-collapse: collapse;
   width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+#myTable th, #myTable td {
   text-align: left;
-  padding: 8px;
+  padding: 12px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
 }
 </style>
 </head>
 <body>
 
-<h2>WoR ARM Applications</h2>
+<h2>My Customers</h2>
 
-<table>
-  <tr>
+<input type="text" id="searchbox" onkeyup="search()" placeholder="Search.." title="Search for applications">
+
+<table id="apptable">
+  <tr class="header">
     <th>Application</th>
     <th>Tested by (discord user)</th>
     <th>Download link</th>
@@ -68,6 +90,27 @@ tr:nth-child(even) {
     <td>Version 3.8.5</td>
   </tr>
 </table>
+
+<script>
+function search() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchbox");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("apptable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
 </body>
 </html>
